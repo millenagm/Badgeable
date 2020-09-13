@@ -131,16 +131,11 @@ extension Badgeable {
         label.sizeToFit()
 
         var labelBounds = label.bounds
-        labelBounds.size.width += Defaults.padding
-        labelBounds.size.height += Defaults.padding
+        let size = max(labelBounds.size.height, labelBounds.size.width) + Defaults.padding
 
-        if labelBounds.size.width < labelBounds.size.height {
-            labelBounds.size.width = labelBounds.size.height
-        }
-
-        label.widthAnchor.constraint(equalToConstant: labelBounds.size.height).isActive = true
-        label.heightAnchor.constraint(equalToConstant: labelBounds.size.height).isActive = true
-        label.layer.cornerRadius = labelBounds.size.height / 2
+        label.widthAnchor.constraint(equalToConstant: size).isActive = true
+        label.heightAnchor.constraint(equalToConstant: size).isActive = true
+        label.layer.cornerRadius = size / 2
 
         label.isHidden = badgeCount == 0
         label.backgroundColor = badgeColor
